@@ -6,9 +6,24 @@ import UserDetails from "./components/UserDetails";
 import CommentDetails from "./components/CommentDetails";
 import PostList from "./components/PostList";
 import PostDetails from "./components/PostDetails";
+import { createContext, useContext, type Dispatch } from "react";
+
+// 1. Типизация и создание контекста (данный этап мог быть реализован в отдельном файле)
+export interface IThemeContext {
+  theme: 'light' | 'dark',
+  setTheme: Dispatch<React.SetStateAction<"light" | "dark">>
+}
+
+export const ThemeContext = createContext<IThemeContext>({
+  theme: 'light',
+  setTheme: () => {}
+})
 
 // SPA - Single Page Application
 function App() {
+  const { theme, setTheme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+  const newTheme = isDark ? 'light': 'dark'
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,6 +47,12 @@ function App() {
                 <Link className="nav-link" to="/posts">
                   Посты
                 </Link>
+              </li>
+              <li className="nav-item">
+                <button
+                  className="nav-link btn btn-info"
+                  onClick={() => setTheme(newTheme)}  
+                >Сменить тему на: {newTheme}</button>
               </li>
             </ul>
           </div>

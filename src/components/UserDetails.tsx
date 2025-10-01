@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { IUser } from "./UserList";
 import axios from "axios";
+import { ThemeContext } from "../App";
 
 const UserDetails = () => {
   // Получаем информацию о параметре id из адресной строки
@@ -30,13 +31,20 @@ const UserDetails = () => {
     return <div className="container mt-4">Пользователь не найден</div>;
   }
 
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
     <div className="container mt-4">
       <h2>Профиль пользователя</h2>
-      <div className="card mt-3 shadow-sm">
+      <div
+        className={`card mt-3 shadow-sm ${
+          isDark ? "bg-dark text-light" : "bg-light text-dark"
+        }`}
+      >
         <div className="card-body">
           <h4 className="card-title">{user.name}</h4>
-          <h6 className="card-subtitle mb-2 text-muted">@{user.username}</h6>
+          <h6 className="card-subtitle mb-2">@{user.username}</h6>
           <p className="card-text">
             <strong>Email:</strong> {user.email}
           </p>
@@ -44,7 +52,7 @@ const UserDetails = () => {
             <strong>Phone:</strong> {user.phone}
           </p>
           <p className="card-text">
-            <strong>Website:</strong>
+            <strong>Website: </strong>
             <a href={`http://${user.website}`} target="_blank">
               {user.website}
             </a>

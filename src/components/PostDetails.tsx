@@ -1,8 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import type { IPost } from "./PostList";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import type { IUser } from "./UserList";
+import { ThemeContext } from "../App";
 
 const PostDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,13 +48,20 @@ const PostDetails = () => {
     return <div className="container mt-4">Пост не найден</div>;
   }
 
+  const { theme } = useContext(ThemeContext);
+  const isDark = theme === "dark";
+
   return (
     <div className="container mt-4">
       <h2>Подробный пост</h2>
-      <div className="card mt-3 shadow-sm">
+      <div
+        className={`card mt-3 shadow-sm ${
+          isDark ? "bg-dark text-light" : "bg-light text-dark"
+        }`}
+      >
         <div className="card-body">
           <h4 className="card-title">{post.title}</h4>
-          <h6 className="card-subtitle mb-2 text-muted">пост id: {post.id}</h6>
+          <h6 className="card-subtitle mb-2">пост id: {post.id}</h6>
           <p className="card-text">{post.body}</p>
           <h6 className="card-subtitle mb-2">
             Опубликовано пользователем:{" "}
