@@ -1,10 +1,10 @@
 import { useContext, type FC } from "react";
 import type { IPost } from "./PostList";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../App";
+import { ThemeContext, type IThemeContext } from "../utils/themeContext";
 
 const Post: FC<{ post: IPost }> = ({ post: { id, title, body } }) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext<IThemeContext>(ThemeContext);
   const isDark = theme === "dark";
 
   return (

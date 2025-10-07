@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { IComment } from "./CommentList";
 import axios from "axios";
-import { ThemeContext } from "../App";
+import { ThemeContext } from "../utils/themeContext";
 
 const CommentDetails = () => {
   const { id } = useParams<{ id: string }>();

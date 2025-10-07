@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { IUser } from "./UserList";
 import axios from "axios";
-import { ThemeContext } from "../App";
+import { ThemeContext } from "../utils/themeContext";
 
 const UserDetails = () => {
   // Получаем информацию о параметре id из адресной строки

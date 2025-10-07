@@ -1,14 +1,21 @@
-// import type { JSX } from "react";
-import { useContext, type FC } from "react";
+import { useContext, type FC, type JSX } from "react";
 import { v4 } from "uuid";
 import type { IUser } from "./UserList";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../App";
+import { ThemeContext, type IThemeContext } from "../utils/themeContext";
+import {
+  languageContext,
+  type ILanguageContext,
+} from "../utils/languageContext";
 
-const User: FC<{ user: IUser }> = ({ user: { name, username, email, id } }) => {
+const User: FC<{ user: IUser }> = ({
+  user: { name, username, email, id },
+}): JSX.Element | null => {
   // 3. Получение значение из контекста
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext<IThemeContext>(ThemeContext);
   const isDark = theme === "dark";
+
+  const { language } = useContext<ILanguageContext>(languageContext);
 
   // console.log("Значение переменной isDark равно " + isDark);
   // console.log('Сэр Уинстон Черчилль сказал: "Я хочу обратиться..."');
@@ -24,11 +31,16 @@ const User: FC<{ user: IUser }> = ({ user: { name, username, email, id } }) => {
           <h5 className="card-title">{name}</h5>
           <h6 className="card-subtitle mb-2">@{username}</h6>
           <p className="card-text">
-            <strong>Email: </strong> {email}
+            <strong>{language === "ru" ? "Eмейл: " : "Email: "} </strong>{" "}
+            {email}
           </p>
           {/* 1. Добавление возможности перехода на новую ссылку при нажатии на кнопку */}
           <Link to={`/users/${id}`} className="btn btn-primary btn-sm">
-            Подробнее...
+            {language === "ru"
+              ? "Подробнее..."
+              : language === "en"
+              ? "More details..."
+              : "Mehr Details..."}
           </Link>
         </div>
       </div>

@@ -1,12 +1,14 @@
 import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 import "./index.css";
-import App, { ThemeContext } from "./App.tsx";
+import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeContext } from "./utils/themeContext.ts";
 
 export const Root = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>("light");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   return (
     <StrictMode>

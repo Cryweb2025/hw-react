@@ -3,7 +3,7 @@ import type { IPost } from "./PostList";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import type { IUser } from "./UserList";
-import { ThemeContext } from "../App";
+import { ThemeContext } from "../utils/themeContext";
 
 const PostDetails = () => {
   const { id } = useParams<{ id: string }>();

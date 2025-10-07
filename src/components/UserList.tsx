@@ -1,7 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { v4 } from "uuid";
 import User from "./User";
+import {
+  languageContext,
+  type ILanguageContext,
+} from "../utils/languageContext";
 
 export interface IUser {
   id: number;
@@ -32,9 +36,17 @@ const UserList = () => {
       });
   }, []);
 
+  const { language } = useContext<ILanguageContext>(languageContext);
+
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Список пользователей</h2>
+      <h2 className="mb-4">
+        {language === "ru"
+          ? "Список пользователей"
+          : language === "en"
+          ? "Users list"
+          : "Benutzerliste"}
+      </h2>
       <div className="row g-3">
         {users.map((user) => (
           <User key={v4()} user={user} />

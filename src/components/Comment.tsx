@@ -1,12 +1,12 @@
 import { useContext, type FC } from "react";
 import type { IComment } from "./CommentList";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../App";
+import { ThemeContext, type IThemeContext } from "../utils/themeContext";
 
 const Comment: FC<{ comment: IComment }> = ({
   comment: { body, email, name, id },
 }) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext<IThemeContext>(ThemeContext);
   const isDark = theme === "dark";
   return (
     <div className="col-12 col-md-6 col-lg-4">
